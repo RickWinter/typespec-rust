@@ -75,8 +75,36 @@ function emitModelDefinitions(crate: rust.Crate, context: Context): helpers.Modu
       continue;
     }
 
+    const hasAzureErrorDetailFields = function(type: rust.Type): boolean {
+      switch (type.kind) {
+        case 'model':
+          for (const field of type.fields) {
+            if (hasAzureErrorDetailFields(field.type)) {
+              return true;
+            }
+          }
+          break;
+        case 'option':
+          if (hasAzureErrorDetailFields(type.type)) {
+            return true;
+          }
+          break;
+        case 'external':
+          if (type.name === 'ErrorDetail' && type.path === 'azure_core::error') {
+            return true;
+          }
+          break;
+      }
+
+      return false;
+    }
+    const isOperationStatus = hasAzureErrorDetailFields(model);
+
     // we add this here to avoid using serde for marker-only models
-    use.add('serde', 'Deserialize', 'Serialize');
+    use.add('serde', 'Deserialize');
+    if (!isOperationStatus) {
+      use.add('serde', 'Serialize');
+    }
 
     const bodyFormat = context.getModelBodyFormat(model);
 
@@ -91,7 +119,11 @@ function emitModelDefinitions(crate: rust.Crate, context: Context): helpers.Modu
     // it's not necessary and will cause compilation failures
     // when the type contains something that doesn't have a
     // default impl (e.g. enum types).
-    body += helpers.annotationDerive(!hasXmlAddlProps, model.flags !== rust.ModelFlags.Unspecified ? 'Default' : '');
+    if (isOperationStatus) {
+      body += `#[derive(Default, Deserialize, SafeDebug)]\n`;
+    } else {
+      body += helpers.annotationDerive(!hasXmlAddlProps, model.flags !== rust.ModelFlags.Unspecified ? 'Default' : '');
+    }
     if (<rust.ModelFlags>(model.flags & rust.ModelFlags.Output) === rust.ModelFlags.Output && (model.flags & rust.ModelFlags.Input) === 0) {
       // output-only models get the non_exhaustive annotation
       body += helpers.AnnotationNonExhaustive;
