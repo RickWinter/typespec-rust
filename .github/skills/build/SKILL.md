@@ -1,6 +1,8 @@
 ---
 name: build
-description: Build the TypeSpec Rust emitter from source
+description: >-
+  Build the TypeSpec Rust emitter from source. Run this after cloning the repo,
+  after pulling changes, or when TypeScript source files have been modified.
 ---
 
 Build the TypeSpec Rust emitter.
@@ -19,8 +21,3 @@ Build the TypeSpec Rust emitter.
    ```bash
    pnpm build
    ```
-
-For continuous development with automatic recompilation, use watch mode instead of `pnpm build`:
-```bash
-pnpm watch
-```

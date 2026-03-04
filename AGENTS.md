@@ -61,9 +61,19 @@ The CI pipeline (Azure DevOps, defined in `eng/pipelines/ci.yml`) runs these che
 
 Always replicate these checks locally before opening a PR.
 
+## Skills
+
+The following skills are available under `.github/skills/` and should be used for common workflows:
+
+- **build** — Build the TypeSpec Rust emitter from source. Run after cloning, pulling changes, or modifying TypeScript source files.
+- **test** — Run TypeScript unit tests and Rust integration tests. Use to verify emitter correctness after code changes.
+- **lint** — Run all linting (ESLint, Clippy) and spell checking. Run before committing to catch issues early.
+- **regenerate** — Regenerate Rust test crates from TypeSpec specifications. Run after modifying emitter source or TypeSpec files under `test/tsp/`.
+- **validate** — Run the full CI validation workflow locally. Use as a final check before submitting a PR to ensure all pipeline steps will pass.
+
 ## PR Guidelines
 
-- Run all linting, build, and test steps before submitting.
+- Run all linting, build, and test steps before submitting (use the **validate** skill).
 - Keep PRs focused on a single change or feature.
-- Regenerate test crates and commit the updated generated code if the emitter output changes.
+- Regenerate test crates and commit the updated generated code if the emitter output changes (use the **regenerate** skill).
 

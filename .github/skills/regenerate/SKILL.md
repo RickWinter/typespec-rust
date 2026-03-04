@@ -1,6 +1,9 @@
 ---
 name: regenerate
-description: Regenerate Rust test crates from TypeSpec specifications
+description: >-
+  Regenerate Rust test crates from TypeSpec specifications. Run this after
+  modifying emitter source code or TypeSpec files under test/tsp/ to update
+  generated output.
 ---
 
 Regenerate the Rust test crates after modifying the emitter or contents under `test/tsp/`. This command can take several minutes to complete; wait for it to finish before proceeding.
@@ -28,7 +31,7 @@ pnpm run tspcompile --filter=oauth
 
 After regeneration, verify the generated Rust code compiles:
 ```bash
-cd packages/typespec-rust/test
+cd test
 cargo build
 ```
 

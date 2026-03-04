@@ -1,6 +1,8 @@
 ---
 name: validate
-description: Run the full CI validation workflow locally before submitting a PR
+description: >-
+  Run the full CI validation workflow locally before submitting a PR. Use this as
+  a final check to ensure all Azure DevOps CI pipeline steps will pass.
 ---
 
 Run the full CI validation workflow locally. This replicates all checks from the Azure DevOps pipeline (`eng/pipelines/ci.yml`).
@@ -19,9 +21,9 @@ Run the full CI validation workflow locally. This replicates all checks from the
    pnpm eslint
    ```
 
-3. **Run TypeScript unit tests:**
+3. **Run TypeScript unit tests with coverage:**
    ```bash
-   pnpm test
+   pnpm run test-ci
    ```
 
 4. **Regenerate test crates** (takes several minutes):
@@ -29,34 +31,39 @@ Run the full CI validation workflow locally. This replicates all checks from the
    pnpm run tspcompile
    ```
 
-5. **Verify no uncommitted diffs** in generated code:
+5. **Run modtidy and verify a clean git state** (mirroring CI):
    ```bash
-   git diff --exit-code packages/typespec-rust/test
+   cd test
+   pnpm -w modtidy $PWD
+   cd ..
+   git add -A .
+   git diff --staged --exit-code
    ```
 
 6. **Build generated Rust crates:**
    ```bash
-   cd packages/typespec-rust/test
+   cd test
    cargo build
    ```
 
 7. **Lint generated Rust code:**
    ```bash
    cargo clippy --workspace --all-features --all-targets --keep-going --no-deps
+   cd ..
    ```
 
 8. **Run integration tests** (requires spector server):
    ```bash
-   cd packages/typespec-rust
    pnpm spector --start
    cd test/spector
    cargo test --no-fail-fast
-   cd ../../
+   cd ../..
    pnpm spector --stop
    ```
 
 9. **Spell check** (from repo root):
    ```bash
+   cd ../..
    cspell -c .vscode/cspell.json .
    ```
 
