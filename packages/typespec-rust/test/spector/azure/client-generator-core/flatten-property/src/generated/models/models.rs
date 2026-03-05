@@ -72,12 +72,15 @@ pub struct Solution {
 /// This is the model with all read-only properties to be flattened.
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct SolutionProperties {
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
 
+    /// Operational visibility: Read
     #[serde(rename = "solutionId", skip_serializing_if = "Option::is_none")]
     pub solution_id: Option<String>,
 
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
 }

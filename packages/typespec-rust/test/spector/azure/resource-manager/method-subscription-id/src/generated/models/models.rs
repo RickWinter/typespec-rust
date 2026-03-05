@@ -11,10 +11,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Deserialize, SafeDebug, Serialize)]
 pub struct ErrorAdditionalInfo {
     /// The additional info.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub info: Option<Value>,
 
     /// The additional info type.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub type_prop: Option<String>,
 }
@@ -23,22 +27,32 @@ pub struct ErrorAdditionalInfo {
 #[derive(Clone, Deserialize, SafeDebug, Serialize)]
 pub struct ErrorDetail {
     /// The error additional info.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "additionalInfo", skip_serializing_if = "Option::is_none")]
     pub additional_info: Option<Vec<ErrorAdditionalInfo>>,
 
     /// The error code.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
 
     /// The error details.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub details: Option<Vec<ErrorDetail>>,
 
     /// The error message.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 
     /// The error target.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<String>,
 }
@@ -60,6 +74,8 @@ pub struct ErrorResponse {
 #[non_exhaustive]
 pub struct Operation {
     /// Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "actionType", skip_serializing_if = "Option::is_none")]
     pub action_type: Option<ActionType>,
 
@@ -69,16 +85,22 @@ pub struct Operation {
 
     /// Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for Azure Resource Manager/control-plane
     /// operations.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "isDataAction", skip_serializing_if = "Option::is_none")]
     pub is_data_action: Option<bool>,
 
     /// The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
     /// "Microsoft.Compute/virtualMachines/capture/action"
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
     /// The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is
     /// "user,system"
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub origin: Option<Origin>,
 }
@@ -88,19 +110,27 @@ pub struct Operation {
 #[non_exhaustive]
 pub struct OperationDisplay {
     /// The short, localized friendly description of the operation; suitable for tool tips and detailed views.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 
     /// The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual Machine",
     /// "Restart Virtual Machine".
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operation: Option<String>,
 
     /// The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft Compute".
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider: Option<String>,
 
     /// The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job Schedule Collections".
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource: Option<String>,
 }

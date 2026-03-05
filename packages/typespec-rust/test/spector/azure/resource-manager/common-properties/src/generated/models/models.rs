@@ -60,14 +60,20 @@ pub struct CloudError {
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct ConfidentialResource {
     /// Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
 
     /// The geo-location where the resource lives
+    ///
+    /// Operational visibility: Create, Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 
     /// The name of the ConfidentialResource
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
@@ -76,6 +82,8 @@ pub struct ConfidentialResource {
     pub properties: Option<ConfidentialResourceProperties>,
 
     /// Azure Resource Manager metadata containing createdBy and modifiedBy information.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "systemData", skip_serializing_if = "Option::is_none")]
     pub system_data: Option<SystemData>,
 
@@ -84,6 +92,8 @@ pub struct ConfidentialResource {
     pub tags: Option<HashMap<String, String>>,
 
     /// The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub type_prop: Option<String>,
 }
@@ -92,6 +102,8 @@ pub struct ConfidentialResource {
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct ConfidentialResourceProperties {
     /// The status of the last operation.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "provisioningState", skip_serializing_if = "Option::is_none")]
     pub provisioning_state: Option<String>,
 
@@ -103,10 +115,14 @@ pub struct ConfidentialResourceProperties {
 #[derive(Clone, Deserialize, SafeDebug, Serialize)]
 pub struct ErrorAdditionalInfo {
     /// The additional info.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub info: Option<Value>,
 
     /// The additional info type.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub type_prop: Option<String>,
 }
@@ -115,22 +131,32 @@ pub struct ErrorAdditionalInfo {
 #[derive(Clone, Deserialize, SafeDebug, Serialize)]
 pub struct ErrorDetail {
     /// The error additional info.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "additionalInfo", skip_serializing_if = "Option::is_none")]
     pub additional_info: Option<Vec<ErrorAdditionalInfo>>,
 
     /// The error code.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
 
     /// The error details.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub details: Option<Vec<ErrorDetail>>,
 
     /// The error message.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 
     /// The error target.
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<String>,
 }
@@ -161,6 +187,8 @@ pub struct InnerError {
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct ManagedIdentityTrackedResource {
     /// Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
 
@@ -169,10 +197,14 @@ pub struct ManagedIdentityTrackedResource {
     pub identity: Option<ManagedServiceIdentity>,
 
     /// The geo-location where the resource lives
+    ///
+    /// Operational visibility: Create, Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 
     /// arm resource name for path
+    ///
+    /// Operational visibility: Read
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
@@ -181,6 +213,8 @@ pub struct ManagedIdentityTrackedResource {
     pub properties: Option<ManagedIdentityTrackedResourceProperties>,
 
     /// Azure Resource Manager metadata containing createdBy and modifiedBy information.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "systemData", skip_serializing_if = "Option::is_none")]
     pub system_data: Option<SystemData>,
 
@@ -189,6 +223,8 @@ pub struct ManagedIdentityTrackedResource {
     pub tags: Option<HashMap<String, String>>,
 
     /// The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub type_prop: Option<String>,
 }
@@ -197,6 +233,8 @@ pub struct ManagedIdentityTrackedResource {
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct ManagedIdentityTrackedResourceProperties {
     /// The status of the last operation.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "provisioningState", skip_serializing_if = "Option::is_none")]
     pub provisioning_state: Option<String>,
 }
@@ -205,10 +243,14 @@ pub struct ManagedIdentityTrackedResourceProperties {
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct ManagedServiceIdentity {
     /// The service principal ID of the system assigned identity. This property will only be provided for a system assigned identity.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "principalId", skip_serializing_if = "Option::is_none")]
     pub principal_id: Option<String>,
 
     /// The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "tenantId", skip_serializing_if = "Option::is_none")]
     pub tenant_id: Option<String>,
 
@@ -267,10 +309,14 @@ pub struct SystemData {
 #[derive(Clone, Default, Deserialize, SafeDebug, Serialize)]
 pub struct UserAssignedIdentity {
     /// The client ID of the assigned identity.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
     pub client_id: Option<String>,
 
     /// The principal ID of the assigned identity.
+    ///
+    /// Operational visibility: Read
     #[serde(rename = "principalId", skip_serializing_if = "Option::is_none")]
     pub principal_id: Option<String>,
 }
